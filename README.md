@@ -1,4 +1,5 @@
-![Scrapy logo](https://docs.scrapy.org/en/stable/_static/scrapylogo.png)
+[![Python](https://img.shields.io/badge/-Python-464646?style=flat&logo=Python&logoColor=ffff19&color=1446a3)](https://www.python.org/)
+![Scrapy logo](https://tinyurl.com/y4d7aet3)
 
 # Асинхронный парсер PEP
 
