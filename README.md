@@ -1,4 +1,4 @@
-![Scrapy](https://raw.githubusercontent.com/scrapy/scrapy/master/docs/logo.png)
+![Scrapy logo](https://docs.scrapy.org/en/stable/_static/scrapylogo.png)
 
 # Асинхронный парсер PEP
 
