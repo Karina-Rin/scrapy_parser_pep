@@ -1,5 +1,5 @@
 [![Python](https://img.shields.io/badge/-Python-464646?style=flat&logo=Python&logoColor=ffff19&color=1446a3)](https://www.python.org/)
-[![Scrapy](https://camo.githubusercontent.com/40d00cefb120a829517e503658aaf6c987d5f9cc6be5e2e35fb20bd63bdbceb5/68747470733a2f2f7363726170792e6f72672f696d672f7363726170796c6f676f2e706e67)](https://scrapy.org/)
+[![Scrapy](https://camo.githubusercontent.com/40d00cefb120a829517e503658aaf6c987d5f9cc6be5e2e35fb20bd63bdbceb5/68747470733a2f2f7363726170792e6f72672f696d672f7363726170796c6f676f2e706e67 width="20" height="20">)](https://scrapy.org/)
 
 # Асинхронный парсер PEP
 
