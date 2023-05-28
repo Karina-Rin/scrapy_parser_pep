@@ -1,6 +1,6 @@
 import csv
 import datetime as dt
-from collections import defaultdict
+from collections import Counter
 from pathlib import Path
 
 from scrapy.exceptions import DropItem
@@ -10,13 +10,13 @@ BASE_DIR = Path(__file__).parent.parent
 
 class PepParsePipeline:
     def open_spider(self, spider):
-        self.status = defaultdict()
+        self.status = Counter()
 
     def process_item(self, item, spider):
         if "status" not in item:
-            raise DropItem("Статус не найден")
+            raise DropItem("Этот статус не найден")
         pep_status = item["status"]
-        self.status[pep_status] = self.status.get(pep_status, 0) + 1
+        self.status[pep_status] += 1
         return item
 
     def close_spider(self, spider):
@@ -25,12 +25,9 @@ class PepParsePipeline:
         now = dt.datetime.now()
         time = now.strftime("%Y-%m-%d_%H-%M-%S")
         file_name = results_dir / f"status_summary_{time}.csv"
-        with open(file_name, mode="w", encoding="utf-8") as file:
+        with file_name.open(mode="w", encoding="utf-8", newline="") as file:
             writer = csv.writer(file, dialect="unix")
-            writer.writerows(
-                (
-                    ("Статус", "Количество"),
-                    *self.status.items(),
-                    ("Total", sum(self.status.values())),
-                )
-            )
+            rows = [(status, count) for status, count in self.status.items()]
+            rows.insert(0, ("Статус", "Количество"))
+            rows.append(("Total", sum(self.status.values())))
+            writer.writerows(rows)

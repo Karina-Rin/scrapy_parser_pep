@@ -28,6 +28,7 @@ class PepParseSpiderMiddleware:
 
 
 class PepParseDownloaderMiddleware:
+    
     @classmethod
     def from_crawler(cls, crawler):
         s = cls()
