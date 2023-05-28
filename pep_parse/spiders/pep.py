@@ -6,6 +6,7 @@ from pep_parse.items import PepParseItem
 
 PEP_PATTERN = re.compile(r"^PEP\s(?P<number>\d+)[\s–]+(?P<name>.*)")
 
+
 class PepSpider(scrapy.Spider):
     name = 'pep'
     allowed_domains = ['peps.python.org']
