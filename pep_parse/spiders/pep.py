@@ -1,10 +1,6 @@
-import re
-
 import scrapy
 
 from pep_parse.items import PepParseItem
-
-PEP_PATTERN = re.compile(r"^PEP\s(?P<number>\d+)[\s–]+(?P<name>.*)")
 
 
 class PepSpider(scrapy.Spider):
@@ -13,19 +9,12 @@ class PepSpider(scrapy.Spider):
     start_urls = ['https://peps.python.org/']
 
     def parse(self, response):
-        index = response.css("#numerical-index tbody")
-        all_hrefs = index.css("a::attr(href)").getall()
-        for href in all_hrefs:
-            yield response.follow(href, callback=self.parse_pep)
+        all_peps = response.xpath('//a[@class="pep reference internal"]/@href')
+        yield from response.follow_all(all_peps, self.parse_pep)
 
     def parse_pep(self, response):
-        pep = response.css("#pep-content")
-        h1_tag = PEP_PATTERN.search(pep.css("h1::text").get())
-        if h1_tag:
-            number, name = h1_tag.group("number", "name")
-            context = {
-                'number': number,
-                'name': name,
-                'status': pep.css("dt:contains('Status') + dd::text").get()
-            }
-            yield PepParseItem(context)
+        full_pep_name = response.css('.page-title::text').get().split()
+        number = full_pep_name[1]
+        name_pep = ' '.join(full_pep_name[3:])
+        status = response.css('abbr::text').get()
+        yield PepParseItem(number=int(number), name=name_pep, status=status)
