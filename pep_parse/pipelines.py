@@ -21,13 +21,9 @@ class PepParsePipeline:
             return item
 
     def close_spider(self, spider):
-        RESULT_DIR = BASE_DIR / 'results'
-        filename = (
-            "status_summary_" +
-            datetime.strftime(datetime.now(), '%Y-%m-%dT%H-%M-%S') +
-            ".csv"
-        )
-        with open(RESULT_DIR / filename, mode='w', encoding='utf-8') as f:
+        time = datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
+        filename = BASE_DIR / f'results/status_summary_{time}.csv'
+        with open(filename, mode='w', encoding='utf-8') as f:
             csv.writer(
                 f, dialect=csv.unix_dialect, quoting=csv.QUOTE_NONE
             ).writerows(
